@@ -1,0 +1,33 @@
+# Node.js の依存関係
+node_modules/
+
+# Vite のビルド成果物
+dist/
+
+# キャッシュファイル（TypeScript のビルドキャッシュや Vite のキャッシュなど）
+*.tsbuildinfo
+.vite/
+
+# ログファイル
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# 環境変数ファイル（機密情報が含まれる可能性があるため）
+.env
+.env.local
+.env.*.local
+.env.*.development
+.env.*.production
+
+# カバレッジレポート（テスト結果のカバレッジ情報など）
+coverage/
+
+# OS やエディターが生成する不要ファイル
+.DS_Store
+Thumbs.db
+
+# エディターの設定ディレクトリ（必要に応じて）
+.vscode/
+.idea/
