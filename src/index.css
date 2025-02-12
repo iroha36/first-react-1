@@ -1,0 +1,64 @@
+/* Basic styles */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #f5f5f5; /* 背景色 */
+  color: #333;              /* テキストカラー */
+  line-height: 1.5;
+}
+
+#root {
+  /* 余白を設定しつつ中央寄せ */
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* 見出しのカラーを変更 */
+h1 {
+  color: #007acc;
+}
+
+/* リンクやナビゲーションの例 */
+nav {
+  background-color: #007acc;
+  padding: 1rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+z
+/* フォーム・入力要素のスタイル */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+/* ボタンのスタイル */
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #007acc;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fa3;
+}

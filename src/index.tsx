@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
+import './index.css'; // <-- CSSをインポート
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
