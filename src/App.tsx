@@ -23,7 +23,7 @@ const App: React.FC = () => {
     <div>
       <h1>Task Management</h1>
       <TaskForm onAddTask={addTask} />
-      <TaskList tasks={tasks} onToggleComplete={toggleComplete} />
+      <TaskList tasks={tasks} onToggleComplete={toggleComplete} onReorderTasks={setTasks} />
     </div>
   );
 };
