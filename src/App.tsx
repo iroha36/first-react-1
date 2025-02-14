@@ -8,6 +8,7 @@ const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const addTask = (task: Task) => {
+    if (task.title === '') return;
     setTasks((prevTasks) => [...prevTasks, task]);
   };
 
