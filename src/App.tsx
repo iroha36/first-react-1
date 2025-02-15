@@ -1,5 +1,5 @@
-// Main application component
 import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Task } from './models/Task';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
@@ -21,11 +21,28 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Task Management</h1>
-      <TaskForm onAddTask={addTask} />
-      <TaskList tasks={tasks} onToggleComplete={toggleComplete} onReorderTasks={setTasks} />
-    </div>
+    <BrowserRouter>
+      <nav style={{ marginBottom: '1rem' }}>
+        <Link to="/" style={{ marginRight: '1rem' }}>Task List</Link>
+        <Link to="/create">Create Task</Link>
+      </nav>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <TaskList
+              tasks={tasks}
+              onToggleComplete={toggleComplete}
+              onReorderTasks={setTasks}
+            />
+          }
+        />
+        <Route
+          path="/create"
+          element={<TaskForm onAddTask={addTask} />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
