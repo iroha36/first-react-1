@@ -1,13 +1,6 @@
-// Displays tasks in a list
 import React from 'react';
 import { Task } from '../models/Task';
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-  DraggableProvided
-} from 'react-beautiful-dnd';
+import './TaskList.css'; // ← CSSファイルをインポート
 
 interface TaskListProps {
   tasks: Task[];
@@ -20,58 +13,36 @@ const TaskList: React.FC<TaskListProps> = ({
   onToggleComplete,
   onReorderTasks
 }) => {
-  const handleDragEnd = (result: DropResult) => {
-    const { source, destination } = result;
-    if (!destination) return;
-    if (source.index === destination.index && source.droppableId === destination.droppableId) {
-      return;
-    }
-
-    const updatedTasks = Array.from(tasks);
-    const [removed] = updatedTasks.splice(source.index, 1);
-    updatedTasks.splice(destination.index, 0, removed);
+  // 例として単一リストでの並び替えを示します（DnD 導入前など）
+  const handleReorder = (indexA: number, indexB: number) => {
+    const updatedTasks = [...tasks];
+    const temp = updatedTasks[indexA];
+    updatedTasks[indexA] = updatedTasks[indexB];
+    updatedTasks[indexB] = temp;
     onReorderTasks(updatedTasks);
   };
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId="tasks-droppable">
-        {(provided) => (
-          <ul
-            style={{ listStyle: 'none', padding: 0 }}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
+    <ul className="task-list">
+      {tasks.map((task, index) => (
+        <li key={task.id} className="task-list-item">
+          <h3 className="task-list-title">{task.title}</h3>
+          <p className="task-list-desc">{task.description}</p>
+          <button
+            onClick={() => onToggleComplete(task.id)}
+            className="task-list-button"
           >
-            {tasks.map((task, index) => (
-              <Draggable key={task.id.toString()} draggableId={task.id.toString()} index={index}>
-                {(providedInner: DraggableProvided) => (
-                  <li
-                    ref={providedInner.innerRef}
-                    {...providedInner.draggableProps}
-                    {...providedInner.dragHandleProps}
-                    style={{
-                      background: '#fff',
-                      marginBottom: '1rem',
-                      padding: '1rem',
-                      borderRadius: '8px',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                      ...providedInner.draggableProps.style
-                    }}
-                  >
-                    <h3 style={{ margin: 0 }}>{task.title}</h3>
-                    <p>{task.description}</p>
-                    <button onClick={() => onToggleComplete(task.id)}>
-                      {task.completed ? 'Move to Pending' : 'Mark as Completed'}
-                    </button>
-                  </li>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </ul>
-        )}
-      </Droppable>
-    </DragDropContext>
+            {task.completed ? 'Move to Pending' : 'Mark as Completed'}
+          </button>
+          {/* テスト用に並び替えのボタンを付けるサンプル */}
+          {index < tasks.length - 1 && (
+            <button onClick={() => handleReorder(index, index + 1)}>
+              ↓ Move Down
+            </button>
+          )}
+        </li>
+      ))}
+    </ul>
   );
 };
 
