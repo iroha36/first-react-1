@@ -1,3 +1,22 @@
+
+/* 全体を横に並べるコンテナ */
+.task-board {
+  display: flex;
+  gap: 1rem;
+}
+
+/* 各カラム */
+.task-column {
+  flex: 1;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+.task-column-title {
+  margin-top: 0;
+}
+
 .task-list {
   list-style: none;
   padding: 0;

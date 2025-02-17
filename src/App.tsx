@@ -12,10 +12,10 @@ const App: React.FC = () => {
     setTasks((prevTasks) => [...prevTasks, task]);
   };
 
-  const toggleComplete = (id: number) => {
+  const updateStatus = (id: number, newStatus: 'todo' | 'inprogress' | 'done') => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
+        task.id === id ? { ...task, status: newStatus } : task
       )
     );
   };
@@ -32,8 +32,8 @@ const App: React.FC = () => {
           element={
             <TaskList
               tasks={tasks}
-              onToggleComplete={toggleComplete}
               onReorderTasks={setTasks}
+              onUpdateStatus={updateStatus}
             />
           }
         />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Task } from '../models/Task';
-import './TaskForm.css'; // ← CSSファイルをインポート
+import './TaskForm.css';
 
 interface TaskFormProps {
   onAddTask: (task: Task) => void;
@@ -12,11 +12,12 @@ const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // 新規タスクは "todo" 状態で作成
     const newTask: Task = {
       id: Date.now(),
       title,
       description,
-      completed: false
+      status: 'todo'
     };
     onAddTask(newTask);
     setTitle('');
