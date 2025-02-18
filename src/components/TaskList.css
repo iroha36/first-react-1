@@ -1,11 +1,10 @@
-
-/* 全体を横に並べるコンテナ */
 .task-board {
   display: flex;
   gap: 1rem;
+  align-items: flex-start;
 }
 
-/* 各カラム */
+/* 各カラム（レーン） */
 .task-column {
   flex: 1;
   background-color: #f0f0f0;
@@ -13,16 +12,21 @@
   padding: 0.75rem;
 }
 
+/* カラムタイトル */
 .task-column-title {
   margin-top: 0;
+  text-align: center;
 }
 
+/* リストのスタイル */
 .task-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  min-height: 50px; /* ドロップしやすくするため最低高さを確保 */
 }
 
+/* タスクカード風 */
 .task-list-item {
   background-color: #fff;
   border-radius: 8px;
@@ -31,24 +35,12 @@
   padding: 1rem;
 }
 
+/* カード内のタイトル */
 .task-list-title {
   margin: 0;
 }
 
+/* カード内のテキスト */
 .task-list-desc {
   margin-bottom: 0.5rem;
-}
-
-.task-list-button {
-  margin-right: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #007acc;
-  color: #fff;
-  cursor: pointer;
-}
-
-.task-list-button:hover {
-  background-color: #005fa3;
 }
