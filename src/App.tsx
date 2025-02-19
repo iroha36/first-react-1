@@ -3,21 +3,18 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Task } from './models/Task';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
+import TaskDetail from './components/TaskDetail';
 
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const addTask = (task: Task) => {
-    if (task.title === '') return;
+    if (!task.title) return;
     setTasks((prevTasks) => [...prevTasks, task]);
   };
 
-  const updateStatus = (id: number, newStatus: 'todo' | 'inprogress' | 'done') => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, status: newStatus } : task
-      )
-    );
+  const reorderTasks = (updatedTasks: Task[]) => {
+    setTasks(updatedTasks);
   };
 
   return (
@@ -29,17 +26,16 @@ const App: React.FC = () => {
       <Routes>
         <Route
           path="/"
-          element={
-            <TaskList
-              tasks={tasks}
-              onReorderTasks={setTasks}
-              onUpdateStatus={updateStatus}
-            />
-          }
+          element={<TaskList tasks={tasks} onReorderTasks={reorderTasks} />}
         />
         <Route
           path="/create"
           element={<TaskForm onAddTask={addTask} />}
+        />
+        {/* タスク詳細ページ: /task/:id */}
+        <Route
+          path="/task/:id"
+          element={<TaskDetail tasks={tasks} />}
         />
       </Routes>
     </BrowserRouter>
