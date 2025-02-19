@@ -1,6 +1,8 @@
+
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Task } from '../models/Task';
+import './TaskDetail.css';
 
 interface TaskDetailProps {
   tasks: Task[];
@@ -15,20 +17,30 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ tasks }) => {
 
   if (!task) {
     return (
-      <div>
-        <h2>Task not found</h2>
-        <Link to="/">Back to Task List</Link>
+      <div className="task-detail-container">
+        <h2 className="task-detail-title">Task not found</h2>
+        <Link to="/" className="task-detail-back-link">
+          Back to Task List
+        </Link>
       </div>
     );
   }
 
   return (
-    <div>
-      <h2>Task Detail</h2>
-      <p><strong>Title:</strong> {task.title}</p>
-      <p><strong>Description:</strong> {task.description}</p>
-      <p><strong>Status:</strong> {task.status}</p>
-      <Link to="/">Back to Task List</Link>
+    <div className="task-detail-container">
+      <h2 className="task-detail-title">Task Detail</h2>
+      <p className="task-detail-field">
+        <span className="task-detail-label">Title:</span> {task.title}
+      </p>
+      <p className="task-detail-field">
+        <span className="task-detail-label">Description:</span> {task.description}
+      </p>
+      <p className="task-detail-field">
+        <span className="task-detail-label">Status:</span> {task.status}
+      </p>
+      <Link to="/" className="task-detail-back-link">
+        Back to Task List
+      </Link>
     </div>
   );
 };
