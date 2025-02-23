@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Task } from '../models/Task';
 import './TaskList.css';
 
@@ -8,7 +9,6 @@ interface TaskListProps {
   onUpdateStatus?: (id: number, newStatus: 'todo' | 'inprogress' | 'done') => void;
 }
 
-// 視覚的なレーンを 3 列に分けるため、status ごとに仕分け
 const TaskList: React.FC<TaskListProps> = ({
   tasks,
   onReorderTasks,
@@ -25,13 +25,11 @@ const TaskList: React.FC<TaskListProps> = ({
     copied[indexA] = copied[indexB];
     copied[indexB] = temp;
 
-    // その列だけ更新後、全体の配列に反映させる
     const other = tasks.filter((t) => t.status !== copied[0].status);
     const updatedTasks = [...other, ...copied];
     onReorderTasks(updatedTasks);
   };
 
-  // 共通UIの描画をまとめる
   const renderColumn = (
     title: string,
     list: Task[],
@@ -42,7 +40,11 @@ const TaskList: React.FC<TaskListProps> = ({
       <ul className="task-list">
         {list.map((task, index) => (
           <li key={task.id} className="task-list-item">
-            <h3 className="task-list-title">{task.title}</h3>
+            <h3 className="task-list-title">
+              <Link to={`/task/${task.id}`}>
+                {task.title}
+              </Link>
+            </h3>
             <p className="task-list-desc">{task.description}</p>
 
             {/* ステータス移動ボタン */}
