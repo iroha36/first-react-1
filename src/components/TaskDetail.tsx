@@ -5,7 +5,7 @@ import './TaskDetail.css';
 
 interface TaskDetailProps {
   tasks: Task[];
-  onUpdateTask: (id: number, updated: Partial<Task>) => void; // 追加
+  onUpdateTask: (id: number, updated: Partial<Task>) => void;
 }
 
 const TaskDetail: React.FC<TaskDetailProps> = ({ tasks, onUpdateTask }) => {
@@ -15,6 +15,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ tasks, onUpdateTask }) => {
 
   const [editTitle, setEditTitle] = useState(task?.title || '');
   const [editDescription, setEditDescription] = useState(task?.description || '');
+  const [showSaved, setShowSaved] = useState(false);
 
   if (!task) {
     return (
@@ -28,21 +29,19 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ tasks, onUpdateTask }) => {
   }
 
   const handleSave = () => {
-    onUpdateTask(taskId, {
-      title: editTitle,
-      description: editDescription
-    });
+    onUpdateTask(taskId, { title: editTitle, description: editDescription });
+    setShowSaved(true);
+
+    // 数秒後にメッセージを消す
+    setTimeout(() => {
+      setShowSaved(false);
+    }, 2000);
   };
 
   return (
     <div className="task-detail-container">
       <h2 className="task-detail-title">Task Detail</h2>
-      <p className="task-detail-field">
-        <span className="task-detail-label">ID:</span> {task.id}
-      </p>
-      <p className="task-detail-field">
-        <span className="task-detail-label">Status:</span> {task.status}
-      </p>
+
       <div className="task-detail-field">
         <span className="task-detail-label">Title:</span>
         <input
@@ -50,6 +49,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ tasks, onUpdateTask }) => {
           onChange={(e) => setEditTitle(e.target.value)}
         />
       </div>
+
       <div className="task-detail-field">
         <span className="task-detail-label">Description:</span>
         <textarea
@@ -57,9 +57,17 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ tasks, onUpdateTask }) => {
           onChange={(e) => setEditDescription(e.target.value)}
         />
       </div>
-      <button onClick={handleSave}>
-        Save
+
+      <button onClick={handleSave} className="task-detail-save-button">
+        &#x2713; {/* チェックマーク */}
       </button>
+
+      {/* 保存アニメーション用のメッセージ */}
+      {showSaved && (
+        <div className="task-detail-saved-message">
+          Saved!
+        </div>
+      )}
 
       <Link to="/" className="task-detail-back-link">
         Back to Task List
