@@ -15,7 +15,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ tasks, onUpdateTask }) => {
 
   const [editTitle, setEditTitle] = useState(task?.title || '');
   const [editDescription, setEditDescription] = useState(task?.description || '');
-  const [showSaved, setShowSaved] = useState(false);
+  const [pressed, setPressed] = useState(false);
 
   if (!task) {
     return (
@@ -30,12 +30,12 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ tasks, onUpdateTask }) => {
 
   const handleSave = () => {
     onUpdateTask(taskId, { title: editTitle, description: editDescription });
-    setShowSaved(true);
+    setPressed(true);
 
-    // 数秒後にメッセージを消す
+    // 1秒後にクラス削除
     setTimeout(() => {
-      setShowSaved(false);
-    }, 2000);
+      setPressed(false);
+    }, 1000);
   };
 
   return (
@@ -58,16 +58,12 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ tasks, onUpdateTask }) => {
         />
       </div>
 
-      <button onClick={handleSave} className="task-detail-save-button">
-        &#x2713; {/* チェックマーク */}
+      <button
+        onClick={handleSave}
+        className={`task-detail-save-button ${pressed ? 'pressed' : ''}`}
+      >
+        &#x2713;
       </button>
-
-      {/* 保存アニメーション用のメッセージ */}
-      {showSaved && (
-        <div className="task-detail-saved-message">
-          Saved!
-        </div>
-      )}
 
       <Link to="/" className="task-detail-back-link">
         Back to Task List
